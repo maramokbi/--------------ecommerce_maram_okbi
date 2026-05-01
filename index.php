@@ -20,7 +20,6 @@
                         }
                     else 
                         $error="Incorrect password!";
-
                 }
             else
                 $error="Email not found !";
@@ -31,27 +30,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>APEX SPORT — Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <?php
-             if(isset($error))
-                 echo($error);
-                // echo $error ?? "";
-        ?>
+
+    <!-- Left hero panel -->
+    <div class="auth-hero">
+        <div class="hero-badge">Premium Athletic Gear</div>
+        <div class="hero-brand">APEX<br><span>SPORT</span></div>
+        <p class="hero-tagline">Elevate your performance. Every rep. Every race.</p>
     </div>
-    
-    <form action="" method="post">
-        <label for="email">Email</label>
-        <input type="text" name="email"><br>
-        <label for="password">Password</label>
-        <input type="password" name="password"><br>
-        <button class="submit">Login</button>
-        <p>
-            Not already registered? 
-            <a href="register.php"> Register </a>
-        </p>
-    </form>
+
+    <!-- Right form panel -->
+    <div class="auth-panel">
+        <div class="auth-card">
+            <h1 class="auth-title">WELCOME<br>BACK</h1>
+            <p class="auth-subtitle">Sign in to your APEX account</p>
+
+            <?php if(isset($error)): ?>
+                <div class="error-box"><?= $error ?></div>
+            <?php endif; ?>
+
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="text" name="email" id="email" placeholder="you@example.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button class="btn-primary" type="submit">SIGN IN</button>
+            </form>
+
+            <div class="auth-footer">
+                Not registered yet? <a href="register.php">Create account</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

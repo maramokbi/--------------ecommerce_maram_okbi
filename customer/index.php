@@ -34,50 +34,73 @@
 
                     header('Location: ' . $_SERVER["PHP_SELF"]);
                     exit;
-                    
-
-                    
                 }
         }
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>APEX SPORT — Shop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <?php include 'header.php'; ?>
+
+    <!-- Hero banner -->
+    <div class="page-hero">
+        <div>
+            <p>New Collection 2025</p>
+            <h1>GEAR<br>UP <em>NOW</em></h1>
+        </div>
+    </div>
+
+    <!-- Products section -->
+    <div class="section-label">
+        <h2>ALL PRODUCTS</h2>
+        <?php
+            $count_query = $pdo->query("select count(*) from article");
+            $total = $count_query->fetchColumn();
+        ?>
+        <span class="section-count"><?= $total ?> items</span>
+    </div>
+
+    <div class="products-grid">
     <?php 
-       
         $query=$pdo->query("select * from article");
-        if($query->rowCount())
-        {
-            while($product=$query->fetch(PDO::FETCH_ASSOC)){
-                echo '<img src="../assets/'.$product["image"].'" style="height:50px">';
-                foreach($product as $key=>$value)
-                {
-                    if(!in_array($key,["description","id", "image"]))
-                    {
-                            if($key=="price")
-                                echo $value." DNT <br>";
-                            elseif ($key=="stock")
-                                echo 'only '.$value .' units available <br>';
-                            else echo $value.'<br>';
-                    }
-                }
-                ?>
-                <form action="" method="POST">
-                    <input type="hidden" name="choosen_id" value="<?= $product["id"]; ?>">
-                    <label for="quantity"></label>
-                    <input type="number" name="quantity" id="quantity" min="1" max="<?= $product["stock"] ?>">
-                    <button type="submit">Add to cart</button>
+        if($query->rowCount()):
+            while($product=$query->fetch(PDO::FETCH_ASSOC)):
+                $stock = (int)$product["stock"];
+                $stockClass = $stock > 10 ? '' : ($stock > 0 ? 'low' : 'out');
+                $stockLabel = $stock > 10 ? $stock.' in stock' : ($stock > 0 ? 'Only '.$stock.' left!' : 'Out of stock');
+    ?>
+        <div class="product-card">
+            <div class="card-image">
+                <img src="../assets/<?= htmlspecialchars($product["image"]) ?>" alt="<?= htmlspecialchars($product["name"]) ?>">
+                <span class="stock-badge <?= $stockClass ?>"><?= $stockLabel ?></span>
+            </div>
+            <div class="card-body">
+                <div class="card-name"><?= htmlspecialchars($product["name"]) ?></div>
+                <div class="card-price">
+                    <?= number_format($product["price"], 2) ?> <span>DNT</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <?php if($stock > 0): ?>
+                <form action="" method="POST" style="display:contents">
+                    <input type="hidden" name="choosen_id" value="<?= $product["id"] ?>">
+                    <input class="qty-input" type="number" name="quantity" min="1" max="<?= $stock ?>" value="1">
+                    <button class="btn-add" type="submit">ADD TO CART</button>
                 </form>
-                <?php  
-            }
-        }
-     ?>
+                <?php else: ?>
+                    <button class="btn-add" disabled>OUT OF STOCK</button>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endwhile; endif; ?>
+    </div>
+
 </body>
 </html>
