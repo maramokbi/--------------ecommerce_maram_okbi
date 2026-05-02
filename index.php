@@ -30,7 +30,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX SPORT — Login</title>
+    <title>Nova Sport — Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -38,7 +38,7 @@
     <!-- Left hero panel -->
     <div class="auth-hero">
         <div class="hero-badge">Premium Athletic Gear</div>
-        <div class="hero-brand">APEX<br><span>SPORT</span></div>
+        <div class="hero-brand">Nova<br><span>Sport</span></div>
         <p class="hero-tagline">Elevate your performance. Every rep. Every race.</p>
     </div>
 
@@ -46,7 +46,7 @@
     <div class="auth-panel">
         <div class="auth-card">
             <h1 class="auth-title">WELCOME<br>BACK</h1>
-            <p class="auth-subtitle">Sign in to your APEX account</p>
+            <p class="auth-subtitle">Sign in to your Nova account</p>
 
             <?php if(isset($error)): ?>
                 <div class="error-box"><?= $error ?></div>

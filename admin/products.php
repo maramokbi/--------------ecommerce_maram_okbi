@@ -2,9 +2,12 @@
     session_start();
     $message = "";
     include '../connection.php';
-    if(!isset($_SESSION["crud_task"])){
+    if($_SERVER["REQUEST_METHOD"]=="GET" && empty($_GET["selected_id"]))
+        {
         $_SESSION["crud_task"] = "Create";
-    }
+        unset($_SESSION["selected_id"]);
+        unset($selected_product); 
+        }
     if($_SERVER["REQUEST_METHOD"]=="GET" && !empty($_GET["selected_id"]) )
         {
             if($_GET["selected_id"])
@@ -51,7 +54,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX SPORT — Products</title>
+    <title>Nova Sport — Products</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -60,7 +63,7 @@
     <!-- Sidebar -->
     <aside class="admin-sidebar">
         <div class="sidebar-brand">
-            <div class="sidebar-brand-name">APEX<span>SPORT</span></div>
+            <div class="sidebar-brand-name">Nova<span>Sport</span></div>
             <div class="sidebar-badge">Admin Panel</div>
         </div>
         <nav class="sidebar-nav">
