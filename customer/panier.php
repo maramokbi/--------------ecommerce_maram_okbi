@@ -124,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
                     <span class="total-label">TOTAL</span>
                     <span class="total-value"><?= number_format($total_panier, 2) ?> <span style="font-size:18px">DNT</span></span>
                 </div>
-                <a href="#" class="btn-checkout">CHECKOUT →</a>
+                <a href="../index.php" class="btn-checkout">CHECKOUT →</a>
                 <a href="index.php" style="display:block;text-align:center;margin-top:16px;color:rgba(255,255,255,.5);font-size:13px;text-decoration:none;">← Continue Shopping</a>
             </div>
         </div>

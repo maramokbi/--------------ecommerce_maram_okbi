@@ -59,21 +59,25 @@
             </div>
 
             <div class="quick-links">
-    <a href="products.php" class="quick-link-card">
-        <img src="../assets/products-banner.png" alt="Products">
-        <div>
-            <div class="qlc-label">PRODUCTS</div>
-            <div class="qlc-desc">Manage your product catalog</div>
-        </div>
-    </a>
-    <a href="users.php" class="quick-link-card">
-        <img src="../assets/team-banner.png" alt="Users">
-        <div>
-            <div class="qlc-label">USERS</div>
-            <div class="qlc-desc">Manage customers and admins</div>
-        </div>
-    </a>
-</div>
+                <a href="products.php" class="quick-link-card">
+                    <div class="img-wrap">
+                        <img src="../assets/products-banner.png" alt="Products">
+                    </div>
+                    <div>
+                        <div class="qlc-label">PRODUCTS</div>
+                        <div class="qlc-desc">Manage your product catalog</div>
+                    </div>
+                </a>
+                <a href="users.php" class="quick-link-card">
+                    <div class="img-wrap">
+                        <img src="../assets/team-banner.png" alt="Users">
+                    </div>
+                    <div>
+                        <div class="qlc-label">USERS</div>
+                        <div class="qlc-desc">Manage customers and admins</div>
+                    </div>
+                </a>
+            </div>
 
         </div>
     </div>

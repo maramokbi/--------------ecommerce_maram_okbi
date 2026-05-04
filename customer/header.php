@@ -4,11 +4,11 @@ $cart_count = isset($_SESSION["panier"]) ? count($_SESSION["panier"]["id"]) : 0;
 $user_name  = $_COOKIE['connected_user'] ?? '';
 ?>
 <nav class="apex-nav">
-    <a href="index.php" class="nav-brand">APEX<span>SPORT</span></a>
+    <a href="index.php" class="nav-brand">Nova<span>Sport</span></a>
     <span class="nav-tagline">Premium Athletic Gear</span>
     <div class="nav-right">
         <?php if($user_name): ?>
-            <span class="nav-user">👋 <?= htmlspecialchars($user_name) ?></span>
+            <span class="nav-user"> <?= htmlspecialchars($user_name) ?></span>
         <?php endif; ?>
         <a href="panier.php" class="nav-cart">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">

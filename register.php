@@ -26,7 +26,7 @@
     <!-- Left hero panel -->
     <div class="auth-hero">
         <div class="hero-badge">Join the Elite</div>
-        <div class="hero-brand">JOIN<br><span>APEX</span></div>
+        <div class="hero-brand">JOIN<br><span>NOVA</span></div>
         <p class="hero-tagline">Your journey to peak performance starts here.</p>
     </div>
 
@@ -34,7 +34,7 @@
     <div class="auth-panel">
         <div class="auth-card">
             <h1 class="auth-title">CREATE<br>ACCOUNT</h1>
-            <p class="auth-subtitle">Start your APEX journey today</p>
+            <p class="auth-subtitle">Start your Nova Sport journey today</p>
 
             <form action="" method="post">
                 <div class="form-row">

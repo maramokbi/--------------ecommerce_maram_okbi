@@ -52,7 +52,7 @@
     <!-- Hero banner -->
     <div class="page-hero">
         <div>
-            <p>New Collection 2025</p>
+            <p>New Collection 2026</p>
             <h1>GEAR<br>UP <em>NOW</em></h1>
         </div>
     </div>

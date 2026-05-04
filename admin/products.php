@@ -2,12 +2,9 @@
     session_start();
     $message = "";
     include '../connection.php';
-    if($_SERVER["REQUEST_METHOD"]=="GET" && empty($_GET["selected_id"]))
-        {
+    if(!isset($_SESSION["crud_task"])){
         $_SESSION["crud_task"] = "Create";
-        unset($_SESSION["selected_id"]);
-        unset($selected_product); 
-        }
+    }
     if($_SERVER["REQUEST_METHOD"]=="GET" && !empty($_GET["selected_id"]) )
         {
             if($_GET["selected_id"])
@@ -25,7 +22,15 @@
             $price = $_POST["price"];
             $stock = $_POST["stock"];
             $description = $_POST["description"];
-            $image = $_POST["image"];
+
+            // Gestion de l'upload image
+            if (!empty($_FILES["image"]["name"])) {
+                $ext = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+                $image = "images/produits/" . uniqid() . "." . $ext;
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../assets/" . $image);
+            } else {
+                $image = $_POST["old_image"] ?? "";
+            }
             
             if($_SESSION["crud_task"]=="delete")
                 {
@@ -54,7 +59,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Sport — Products</title>
+    <title>APEX SPORT — Products</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -63,7 +68,7 @@
     <!-- Sidebar -->
     <aside class="admin-sidebar">
         <div class="sidebar-brand">
-            <div class="sidebar-brand-name">Nova<span>Sport</span></div>
+            <div class="sidebar-brand-name">APEX<span>SPORT</span></div>
             <div class="sidebar-badge">Admin Panel</div>
         </div>
         <nav class="sidebar-nav">
@@ -115,8 +120,11 @@
                             while($product=$query->fetch(PDO::FETCH_ASSOC)):
                     ?>
                         <tr>
-                            <td><img src="../assets/<?= htmlspecialchars($product["image"]) ?>" alt="<?= htmlspecialchars($product["name"]) ?>"></td>
-                            <td><?= htmlspecialchars($product["name"]) ?></td>
+<td>
+  <div class="img-wrap">
+    <img src="../assets/<?= htmlspecialchars($product["image"]) ?>" alt="<?= htmlspecialchars($product["name"]) ?>">
+  </div>
+</td>                            <td><?= htmlspecialchars($product["name"]) ?></td>
                             <td><?= number_format($product["price"],2) ?> DNT</td>
                             <td><?= $product["stock"] ?></td>
                             <td style="display:flex;gap:8px;padding:14px 20px;">
@@ -153,7 +161,8 @@
                     <?php if($message): ?>
                         <div class="message-banner"><?= $message ?></div>
                     <?php endif; ?>
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="old_image" value="<?= htmlspecialchars($selected_product["image"] ?? "") ?>">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Product Name</label>
@@ -162,10 +171,17 @@
                                        placeholder="e.g. Pro Running Shoes">
                             </div>
                             <div class="form-group">
-                                <label for="image">Image Filename</label>
-                                <input type="text" name="image" id="image"
-                                       value="<?= htmlspecialchars($selected_product["image"] ?? "") ?>"
-                                       placeholder="images/produits/filename.jpg">
+                                <label>Image</label>
+                                <?php if(!empty($selected_product["image"])): ?>
+                                    <div style="margin-bottom:8px;">
+                                        <img src="../assets/<?= htmlspecialchars($selected_product["image"]) ?>" 
+                                             style="height:60px;border-radius:6px;object-fit:cover;">
+                                    </div>
+                                <?php endif; ?>
+                                <label class="file-input-label" for="image">
+                                    <span id="file-name">Choisir une image...</span>
+                                </label>
+                                <input type="file" name="image" id="image" accept="image/*" style="display:none;">
                             </div>
                         </div>
                         <div class="form-row">
@@ -198,5 +214,13 @@
     </div>
 
 </div>
+
+<script>
+    document.getElementById('image').addEventListener('change', function() {
+        const name = this.files[0] ? this.files[0].name : 'Choisir une image...';
+        document.getElementById('file-name').textContent = name;
+    });
+</script>
+
 </body>
 </html>
